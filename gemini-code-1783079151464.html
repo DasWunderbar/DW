@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>花語花禮 | 精緻花束專賣</title>
+    <style>
+        :root { --primary: #e91e63; --dark: #333; }
+        body { font-family: 'Microsoft JhengHei', sans-serif; margin: 0; padding: 0; }
+        header { background: #fff5f7; padding: 20px; text-align: center; border-bottom: 2px solid #eee; }
+        .container { display: flex; padding: 20px; gap: 20px; flex-wrap: wrap; }
+        
+        /* 商品列表 */
+        .products { flex: 2; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+        .card { border: 1px solid #ddd; padding: 15px; text-align: center; border-radius: 8px; }
+        button { background: var(--primary); color: white; border: none; padding: 10px; cursor: pointer; border-radius: 5px; margin-top: 10px; }
+
+        /* 購物車 */
+        .cart { flex: 1; min-width: 300px; border: 2px solid var(--primary); padding: 20px; border-radius: 8px; height: fit-content; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🌸 花語花禮</h1>
+</header>
+
+<div class="container">
+    <div class="products">
+        <div class="card">
+            <h3>浪漫玫瑰花束</h3>
+            <p>NT$ 1,200</p>
+            <button onclick="addToCart('浪漫玫瑰花束', 1200)">加入購物車</button>
+        </div>
+        <div class="card">
+            <h3>清新向日葵</h3>
+            <p>NT$ 800</p>
+            <button onclick="addToCart('清新向日葵', 800)">加入購物車</button>
+        </div>
+        <div class="card">
+            <h3>永生花禮盒</h3>
+            <p>NT$ 2,500</p>
+            <button onclick="addToCart('永生花禮盒', 2500)">加入購物車</button>
+        </div>
+    </div>
+
+    <div class="cart">
+        <h2>購物車</h2>
+        <ul id="cart-items"><li>目前沒有商品</li></ul>
+        <p>總金額: NT$ <span id="total">0</span></p>
+        <button onclick="checkout()">立即結帳</button>
+    </div>
+</div>
+
+<script>
+    let cart = [];
+    let total = 0;
+
+    function addToCart(name, price) {
+        cart.push({ name, price });
+        total += price;
+        updateCart();
+    }
+
+    function updateCart() {
+        const list = document.getElementById('cart-items');
+        list.innerHTML = cart.map(item => `<li>${item.name} - $${item.price}</li>`).join('');
+        document.getElementById('total').innerText = total;
+    }
+
+    function checkout() {
+        if(cart.length === 0) return alert('購物車是空的！');
+        alert('結帳成功！總金額：NT$ ' + total);
+        cart = [];
+        total = 0;
+        updateCart();
+    }
+</script>
+
+</body>
+</html>
